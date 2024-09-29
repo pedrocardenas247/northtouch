@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Validation</title>
+    <style>
+        .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .button-disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .allowed-files {
+            font-size: 0.8em;
+            color: #ff497c;
+        }
+    </style>
+</head>
+<body>
+    <form id="formphotos" method="post" enctype="multipart/form-data" class="elementor-form">
+        <div class="elementor-form-fields-wrapper elementor-labels-above">
+            <div class="elementor-field-type-file elementor-field-group elementor-column elementor-field-group-companylogo elementor-col-100">
+                <label for="companylogo" class="elementor-field-label">Company Logo <span class="allowed-files">(allowed files: jpg, png, jpeg)</span></label>
+                <input type="file" id="companylogo" name="companylogo" class="elementor-field elementor-size-sm elementor-field-textual">
+                <img id="preview-companylogo" class="img-thumbnail" style="max-width: 100px; display: none;">
+            </div>
+            <div class="elementor-field-type-file elementor-field-group elementor-column elementor-field-group-profilephoto elementor-col-100">
+                <label for="profilephoto" class="elementor-field-label">Profile Photo</label>
+                <input type="file" id="profilephoto" name="profilephoto" class="elementor-field elementor-size-sm elementor-field-textual">
+                <img id="preview-profilephoto" class="img-thumbnail" style="max-width: 100px; display: none;">
+            </div>
+            <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+                <button class="elementor-button elementor-size-sm w-100 button-disabled" type="submit" id="submit-button">
+                    <span class="elementor-button-content-wrapper">
+                        <span class="elementor-button-text">Send</span>
+                        <div class="spinner" id="spinner"></div>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('formphotos');
+            var submitButton = document.getElementById('submit-button');
+            var spinner = document.getElementById('spinner');
+            var companyLogoInput = document.getElementById('companylogo');
+            var profilePhotoInput = document.getElementById('profilephoto');
+
+            var allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            var maxSize = 1048576; // 1 MB en bytes
+
+            // Deshabilitar el botón de envío inicialmente
+            submitButton.disabled = true;
+
+            function validateFile(file) {
+                if (!file) return false; // No hay archivo seleccionado
+                if (!allowedTypes.includes(file.type)) {
+                    return false;
+                }
+                if (file.size > maxSize) {
+                    return false;
+                }
+                return true;
+            }
+
+            function checkValidation() {
+                var companyLogo = companyLogoInput.files[0];
+                var profilePhoto = profilePhotoInput.files[0];
+
+                var isCompanyLogoValid = validateFile(companyLogo);
+                var isProfilePhotoValid = validateFile(profilePhoto);
+
+                if (
+                    (isCompanyLogoValid && !profilePhoto) || 
+                    (isProfilePhotoValid && !companyLogo) || 
+                    (isCompanyLogoValid && isProfilePhotoValid)
+                ) {
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('button-disabled');
+                } else {
+                    submitButton.disabled = true;
+                    submitButton.classList.add('button-disabled');
+                }
+            }
+
+            companyLogoInput.addEventListener('change', checkValidation);
+            profilePhotoInput.addEventListener('change', checkValidation);
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevenir el envío predeterminado del formulario
+
+                var companyLogo = companyLogoInput.files[0];
+                var profilePhoto = profilePhotoInput.files[0];
+
+                if (!validateFile(companyLogo) || !validateFile(profilePhoto)) {
+                    // Si la validación falla, no permitir la carga
+                    return;
+                }
+
+                // Mostrar el spinner y deshabilitar el botón de envío
+                spinner.style.display = 'inline-block';
+                submitButton.classList.add('button-disabled');
+
+                // Deshabilitar los campos del formulario
+                var formElements = form.elements;
+                for (var i = 0; i < formElements.length; i++) {
+                    formElements[i].disabled = true;
+                }
+
+                // Usar AJAX para enviar el formulario y manejar la respuesta
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", form.action, true);
+                xhr.onload = function() {
+                    // Ocultar el spinner y habilitar el botón de envío
+                    spinner.style.display = 'none';
+                    submitButton.classList.remove('button-disabled');
+
+                    // Habilitar los campos del formulario
+                    for (var i = 0; i < formElements.length; i++) {
+                        formElements[i].disabled = false;
+                    }
+
+                    if (xhr.status === 200) {
+                        // Recargar la página automáticamente después de una carga exitosa
+                        window.location.reload();
+                    } else {
+                        alert("There was a problem with the image upload. Please try again.");
+                    }
+                };
+                xhr.onerror = function() {
+                    // Ocultar el spinner y habilitar el botón de envío
+                    spinner.style.display = 'none';
+                    submitButton.classList.remove('button-disabled');
+
+                    // Habilitar los campos del formulario
+                    for (var i = 0; i < formElements.length; i++) {
+                        formElements[i].disabled = false;
+                    }
+
+                    alert("There was a problem with the image upload. Please try again.");
+                };
+
+                // Enviar el formulario a través de AJAX
+                var formData = new FormData(form);
+                xhr.send(formData);
+            });
+        });
+    </script>
+</body>
+</html>
