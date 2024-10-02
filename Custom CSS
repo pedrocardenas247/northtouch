@@ -1,0 +1,73 @@
+.woocommerce-account .woocommerce-MyAccount-navigation {
+    display: none;
+}
+.woocommerce-account .woocommerce-MyAccount-content {
+    width: auto;
+}
+
+/* shortcodes de logo y profile */
+
+.container_imagenes {
+display: flex;
+justify-content: space-between;
+width: 100%;
+height: auto; /* Adjusts based on content /
+z-index: 1; / Lower z-index to ensure it is behind elementor-widget-container */
+position: absolute;
+}
+
+.logo_imagenes, .profile_imagenes {
+flex: 0 0 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+
+/* formulario de datos personales */
+
+.info-container {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 35px 0 35px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: 400;
+}
+
+.info-row-name {
+    text-align: right;
+    font-size: larger;
+    font-weight: 600;
+}
+
+.info-row-job {
+    text-align: right;
+    font-size: medium;
+    font-weight: 600;
+    color: #a6a4a4;
+    margin-bottom: 15px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.info-icono {
+    flex: 0 0 10%;
+    text-align: center;
+}
+
+.info-icono svg{
+    height:40px;
+}
+
+.info-value {
+    flex: auto;
+    text-align: right;
+      border-bottom: 1px solid white; /* Cambia el grosor de la línea según sea necesario */
+    padding-bottom: 5px; /* Espacio entre el texto y la línea */
+}
