@@ -1,23 +1,98 @@
-<div class="container_imagenes">
-    <div class="logo_imagenes">
-        [mostrar_logo_empresa]
-    </div>
-    <div class="profile_imagenes">
-        [mostrar_foto_perfil]
-    </div>
-</div>
+<!DOCTYPE html>
+<body>
+    <div class="info-container">
+        <div class="info-row-name">
+            <div class="info-value" id="cardname">[user_data field="custom_name" default="Nombre no disponible"]</div>
+        </div>
+        <div class="info-row-job">
+            <div class="info-value" id="cardjob">[user_data field="custom_job" default="Trabajo no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="5">
+  <!-- Bigger white square with rounded corners -->
+  <rect x="4" y="4" width="72" height="72" rx="5" ry="5" fill="transparent" stroke="white"/>
 
-<style>
-.container_imagenes {
-    display: flex;
-    justify-content: space-between;
-}
-.logo_imagenes {
-    flex: 0 0 70%;
-    text-align: center;
-}
-.profile_imagenes {
-    flex: 0 0 30%;
-    text-align: center;
-}
-</style>
+  <!-- iPhone body, centered with less rounded corners and scaled down -->
+  <rect x="27" y="15" width="26" height="50" rx="4" ry="4" fill="white" stroke="white"/>
+  
+  <!-- iPhone screen (transparent) -->
+  <rect x="29" y="18" width="22" height="34" rx="2" ry="2" fill="black" stroke="white"/>
+
+  <!-- Home button, moved up slightly to fit the new space -->
+  <circle cx="40" cy="58" r="1.5" fill="black" stroke="black" stroke-width="2.5"/>
+</svg>
+
+
+
+
+
+
+
+</div>
+            <div class="info-value" id="cardphone">[user_data field="custom_phone" default="Teléfono no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" fill="none" stroke="white" stroke-width="5">
+  <!-- Bigger white square with rounded corners -->
+  <rect x="6" y="6" width="78" height="78" rx="5" ry="5" fill="transparent" stroke="white"/>
+
+  <!-- Envelope body, smaller size -->
+  <path d="M25 32 h40 a2 2 0 0 1 2 2 v24 a2 2 0 0 1 -2 2 h-40 a2 2 0 0 1 -2 -2 v-24 a2 2 0 0 1 2 -2 z" fill="white" stroke="white"/>
+  
+  <!-- Envelope flap, smaller size -->
+  <path d="M25 32 l20 16 l20 -16" fill="none" stroke="white" stroke-width="6"/>
+
+  <!-- Inner lines for details -->
+  <path d="M25 32 l20 16 l20 -16" fill="none" stroke="black" stroke-width="2"/>
+</svg>
+</div>
+            <div class="info-value" id="cardemail">[user_data field="custom_email" default="Email no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" fill="none" stroke="white" stroke-width="6">
+  <!-- Bigger white square with rounded corners -->
+  <rect x="6" y="6" width="78" height="78" rx="5" ry="5" fill="transparent" stroke="white"/>
+
+  <!-- Solid map marker shape, scaled down -->
+  <path d="M45 20 C52 20, 58 26, 58 32 C58 45, 45 70, 45 70 C45 70, 32 45, 32 32 C32 26, 38 20, 45 20 Z" fill="white" stroke="white"/>
+  
+  <!-- Inner black circle (the hole), scaled down -->
+  <circle cx="45" cy="36" r="10" fill="black"/>
+</svg>
+
+
+
+
+
+                
+            </div>
+            <div class="info-value" id="cardaddress">[user_data field="custom_address" default="Dirección no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" fill="none" stroke="white" stroke-width="2">
+      <!-- Bigger white square with rounded corners and stroke size of 5 -->
+      <rect x="6" y="6" width="58" height="58" rx="10" ry="10" fill="transparent" stroke="white" stroke-width="5"/>
+      <g transform="translate(17, 17) scale(1.5)">
+        <!-- Globe outline -->
+        <circle cx="12" cy="12" r="10" stroke="white" fill="none"></circle>
+        <!-- Horizontal line -->
+        <path d="M2 12h20" stroke="white" fill="none"></path>
+        <!-- First curved line -->
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" fill="none"></path>
+        <!-- Second curved line -->
+        <path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10 15.3 15.3 0 0 0 4-10 15.3 15.3 0 0 0-4-10z" stroke="white" fill="none"></path>
+      </g>
+    </svg>
+
+
+
+            </div>
+            <div class="info-value" id="cardweb">[user_data field="custom_website" default="Website no disponible"]</div>
+        </div>
+    </div>
+</body>
+</html>
