@@ -1,5 +1,5 @@
-// Actualiza formulario de imagenes
 <script>
+//Actualiza las imagenes
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('#formphotos');
 
@@ -8,37 +8,26 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Previsualización del logo de la empresa
-    const companyLogoInput = document.querySelector('#companylogo');
-    const companyLogoPreview = document.querySelector('#preview-companylogo');
+    // Función para manejar la previsualización de imágenes
+    function handleImagePreview(inputSelector, previewSelector) {
+        const input = document.querySelector(inputSelector);
+        const preview = document.querySelector(previewSelector);
 
-    companyLogoInput.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                companyLogoPreview.src = e.target.result;
-                companyLogoPreview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+        input.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
-    // Previsualización de la foto de perfil
-    const profilePhotoInput = document.querySelector('#profilephoto');
-    const profilePhotoPreview = document.querySelector('#preview-profilephoto');
-
-    profilePhotoInput.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                profilePhotoPreview.src = e.target.result;
-                profilePhotoPreview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    handleImagePreview('#companylogo', '#preview-companylogo');
+    handleImagePreview('#profilephoto', '#preview-profilephoto');
 
     // Envío del formulario
     form.addEventListener('submit', function(e) {
@@ -56,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 alert('Images saved successfully.');
             } else {
-                alert('Error saving images: ' + data.data);
+                alert('Error saving images: ' + (data.data || 'Unknown error.'));
             }
         })
         .catch(error => {
