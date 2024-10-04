@@ -1,0 +1,8 @@
+<div class="container_imagenes">
+    <div class="logo_imagenes">
+        [mostrar_logo_empresa]
+    </div>
+    <div class="profile_imagenes">
+        [mostrar_foto_perfil]
+    </div>
+</div>
