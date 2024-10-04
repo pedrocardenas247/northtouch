@@ -1,5 +1,5 @@
-// Refresh
 <script>
+    // Refresh
     document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('formphotos');
     var submitButton = document.getElementById('submit-button');
