@@ -61,109 +61,100 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var form = document.getElementById('formphotos');
-            var submitButton = document.getElementById('submit-button');
-            var spinner = document.getElementById('spinner');
-            var companyLogoInput = document.getElementById('companylogo');
-            var profilePhotoInput = document.getElementById('profilephoto');
+            const form = document.querySelector('#formphotos');
+            const submitButton = document.getElementById('submit-button');
+            const spinner = document.getElementById('spinner');
+            const companyLogoInput = document.getElementById('companylogo');
+            const profilePhotoInput = document.getElementById('profilephoto');
 
-            var allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            var maxSize = 1048576; // 1 MB en bytes
+            if (!form) {
+                console.error('Form not found.');
+                return;
+            }
+
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const maxSize = 1048576; // 1 MB en bytes
 
             // Deshabilitar el botón de envío inicialmente
             submitButton.disabled = true;
 
             function validateFile(file) {
-                if (!file) return false; // No hay archivo seleccionado
-                if (!allowedTypes.includes(file.type)) {
-                    return false;
-                }
-                if (file.size > maxSize) {
-                    return false;
-                }
-                return true;
+                if (!file) return false;
+                return allowedTypes.includes(file.type) && file.size <= maxSize;
             }
 
             function checkValidation() {
-                var companyLogo = companyLogoInput.files[0];
-                var profilePhoto = profilePhotoInput.files[0];
+                const companyLogo = companyLogoInput.files[0];
+                const profilePhoto = profilePhotoInput.files[0];
 
-                var isCompanyLogoValid = validateFile(companyLogo);
-                var isProfilePhotoValid = validateFile(profilePhoto);
+                const isCompanyLogoValid = validateFile(companyLogo);
+                const isProfilePhotoValid = validateFile(profilePhoto);
 
-                if (
-                    (isCompanyLogoValid && !profilePhoto) || 
-                    (isProfilePhotoValid && !companyLogo) || 
-                    (isCompanyLogoValid && isProfilePhotoValid)
-                ) {
-                    submitButton.disabled = false;
-                    submitButton.classList.remove('button-disabled');
-                } else {
-                    submitButton.disabled = true;
-                    submitButton.classList.add('button-disabled');
+                const isValid = (isCompanyLogoValid && !profilePhoto) || 
+                                (isProfilePhotoValid && !companyLogo) || 
+                                (isCompanyLogoValid && isProfilePhotoValid);
+
+                submitButton.disabled = !isValid;
+                submitButton.classList.toggle('button-disabled', !isValid);
+            }
+
+            function handleImagePreview(input, preview) {
+                const file = input.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
                 }
             }
 
-            companyLogoInput.addEventListener('change', checkValidation);
-            profilePhotoInput.addEventListener('change', checkValidation);
+            // Event listeners para previsualización y validación
+            companyLogoInput.addEventListener('change', function() {
+                handleImagePreview(this, document.querySelector('#preview-companylogo'));
+                checkValidation();
+            });
 
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevenir el envío predeterminado del formulario
+            profilePhotoInput.addEventListener('change', function() {
+                handleImagePreview(this, document.querySelector('#preview-profilephoto'));
+                checkValidation();
+            });
 
-                var companyLogo = companyLogoInput.files[0];
-                var profilePhoto = profilePhotoInput.files[0];
+            // Manejo del envío del formulario
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-                if (!validateFile(companyLogo) || !validateFile(profilePhoto)) {
-                    // Si la validación falla, no permitir la carga
-                    return;
-                }
+                const formData = new FormData(form);
+                formData.append('action', 'save_acf_images_update_photos');
 
-                // Mostrar el spinner y deshabilitar el botón de envío
+                // Mostrar spinner y deshabilitar formulario
                 spinner.style.display = 'inline-block';
                 submitButton.classList.add('button-disabled');
+                Array.from(form.elements).forEach(element => element.disabled = true);
 
-                // Deshabilitar los campos del formulario
-                var formElements = form.elements;
-                for (var i = 0; i < formElements.length; i++) {
-                    formElements[i].disabled = true;
-                }
-
-                // Usar AJAX para enviar el formulario y manejar la respuesta
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", form.action, true);
-                xhr.onload = function() {
-                    // Ocultar el spinner y habilitar el botón de envío
-                    spinner.style.display = 'none';
-                    submitButton.classList.remove('button-disabled');
-
-                    // Habilitar los campos del formulario
-                    for (var i = 0; i < formElements.length; i++) {
-                        formElements[i].disabled = false;
-                    }
-
-                    if (xhr.status === 200) {
-                        // Recargar la página automáticamente después de una carga exitosa
+                fetch('/wp-admin/admin-ajax.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
                         window.location.reload();
                     } else {
-                        alert("There was a problem with the image upload. Please try again.");
+                        throw new Error(data.data || 'Unknown error.');
                     }
-                };
-                xhr.onerror = function() {
-                    // Ocultar el spinner y habilitar el botón de envío
+                })
+                .catch(error => {
+                    console.error('Request error:', error);
+                    alert('There was an error processing the form.');
+                })
+                .finally(() => {
+                    // Restaurar el formulario
                     spinner.style.display = 'none';
                     submitButton.classList.remove('button-disabled');
-
-                    // Habilitar los campos del formulario
-                    for (var i = 0; i < formElements.length; i++) {
-                        formElements[i].disabled = false;
-                    }
-
-                    alert("There was a problem with the image upload. Please try again.");
-                };
-
-                // Enviar el formulario a través de AJAX
-                var formData = new FormData(form);
-                xhr.send(formData);
+                    Array.from(form.elements).forEach(element => element.disabled = false);
+                });
             });
         });
     </script>
