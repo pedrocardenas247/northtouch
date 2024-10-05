@@ -1,2 +1,0 @@
-# northtouch
-codigos en worpress
