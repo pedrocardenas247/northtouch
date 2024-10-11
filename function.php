@@ -1,3 +1,5 @@
+<?php
+
 // Hook para generar y almacenar el token al registrar un nuevo cliente
 add_action('user_register', 'generate_and_save_customer_token');
 
@@ -181,24 +183,29 @@ add_action( 'wp_enqueue_scripts', 'flyweb_enqueue_styles' );
 add_action('wp_ajax_save_acf_images_update_photos', 'guardar_imagenes_acf');
 function guardar_imagenes_acf() {
     if (!is_user_logged_in()) {
+        error_log('User not logged in.');
         wp_send_json_error(array('message' => 'User not logged in.'));
         return;
     }
 
     $user_id = get_current_user_id();
+    error_log('Current user ID: ' . $user_id);
 
     // Función para manejar la subida de imágenes
     function handle_image_upload($file, $field_name, $user_id) {
+        error_log('Handling image upload for field: ' . $field_name);
+
         // Validar tipos de archivos permitidos
         $allowed_types = array('image/jpeg', 'image/png', 'image/gif');
         if (!in_array($file['type'], $allowed_types)) {
+            error_log('Invalid file type: ' . $file['type']);
             return 'Invalid file type.';
         }
 
         $upload = wp_handle_upload($file, array('test_form' => false));
         if (!$upload || isset($upload['error'])) {
-            error_log('Upload error: ' . print_r($upload, true)); // Enviar el error al log de PHP
-            return $upload['error']; // Devolver el error si ocurre
+            error_log('Upload error: ' . print_r($upload, true));
+            return $upload['error'];
         }
 
         $attachment_id = wp_insert_attachment(array(
@@ -216,6 +223,7 @@ function guardar_imagenes_acf() {
         // Actualizar el campo ACF con la URL de la imagen
         update_field($field_name, $attachment_id, 'user_' . $user_id);
 
+        error_log('Image uploaded successfully for field: ' . $field_name);
         return null; // Si no hay errores
     }
 
@@ -223,6 +231,7 @@ function guardar_imagenes_acf() {
     if (!empty($_FILES['companylogo']['name'])) {
         $company_logo_error = handle_image_upload($_FILES['companylogo'], 'card-companylogo', $user_id);
         if ($company_logo_error) {
+            error_log('Error uploading company logo: ' . $company_logo_error);
             wp_send_json_error(array('message' => 'Error uploading company logo: ' . $company_logo_error));
             return;
         }
@@ -232,11 +241,13 @@ function guardar_imagenes_acf() {
     if (!empty($_FILES['profilephoto']['name'])) {
         $profile_photo_error = handle_image_upload($_FILES['profilephoto'], 'card-profilephoto', $user_id);
         if ($profile_photo_error) {
+            error_log('Error uploading profile photo: ' . $profile_photo_error);
             wp_send_json_error(array('message' => 'Error uploading profile photo: ' . $profile_photo_error));
             return;
         }
     }
 
+    error_log('Images uploaded successfully.');
     wp_send_json_success(array('message' => 'Images uploaded successfully.'));
 }
 
