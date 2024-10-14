@@ -1,0 +1,193 @@
+<!-- Formulario de Redes Sociales -->
+<form id="socialLinksForm" class="elementor-form">
+    <div class="elementor-form-fields-wrapper elementor-labels-above">
+        <div class="elementor-field-group">
+            <label for="card_link" class="elementor-field-label">LinkedIn URL</label>
+            <input type="url" id="card_link" name="card_link" class="elementor-field elementor-size-sm url-input">
+            <div class="error-message" id="linkedinError">Please enter a valid LinkedIn URL</div>
+        </div>
+        
+        <div class="elementor-field-group">
+            <label for="card_inst" class="elementor-field-label">Instagram URL</label>
+            <input type="url" id="card_inst" name="card_inst" class="elementor-field elementor-size-sm url-input">
+            <div class="error-message" id="instagramError">Please enter a valid Instagram URL</div>
+        </div>
+        
+        <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+            <button class="elementor-button elementor-size-sm w-100" type="submit">
+                <span class="elementor-button-text">Save Social Links</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- Visualización de iconos -->
+<div id="socialIconsDisplay">
+    <!-- LinkedIn Icon -->
+    <div class="card_social_icons" id="linkedinIcon" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+            <rect x="5" y="5" width="100" height="100" rx="15" ry="15" fill="none" stroke="white" stroke-width="4"/>
+            <rect x="15" y="15" width="80" height="80" rx="18" ry="18" fill="black"/>
+            <g transform="translate(25, 25) scale(2.5)">
+                <rect x="4" y="8" width="5" height="16" fill="white"/>
+                <circle cx="6.5" cy="5" r="2.5" fill="white"/>
+                <path d="M28 24h-5v-8.5c0-2.5-1-4.5-3.5-4.5-2 0-3.5 1.5-3.5 4.5V24h-5V8h5v2.5c1-1.5 2.5-2.5 5-2.5 4 0 7 2.5 7 7.5V24z" fill="white"/>
+            </g>
+        </svg>
+    </div>
+    <!-- Instagram Icon -->
+    <div class="card_social_icons" id="instagramIcon" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+            <rect x="5" y="5" width="100" height="100" rx="15" ry="15" fill="none" stroke="white" stroke-width="4"/>
+            <rect x="15" y="15" width="80" height="80" rx="18" ry="18" fill="black"/>
+            <rect x="25" y="25" width="60" height="60" rx="15" ry="15" fill="none" stroke="white" stroke-width="6"/>
+            <circle cx="55" cy="55" r="15" fill="none" stroke="white" stroke-width="6"/>
+            <circle cx="55" cy="55" r="1" fill="white"/>
+            <circle cx="75" cy="35" r="4" fill="white"/>
+        </svg>
+    </div>
+</div>
+
+<style>
+    .url-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .url-input.invalid {
+        border-color: #ff497c;
+    }
+    .error-message {
+        color: #ff497c;
+        font-size: 0.8em;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        display: none;
+    }
+    .card_social_icons {
+    display: none;
+    width: 38px;
+    height: 38px;
+    margin: 10px;
+}
+
+#socialIconsDisplay {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('socialLinksForm');
+    const linkedinInput = document.getElementById('card_link');
+    const instagramInput = document.getElementById('card_inst');
+    const linkedinIcon = document.getElementById('linkedinIcon');
+    const instagramIcon = document.getElementById('instagramIcon');
+    const linkedinLink = document.getElementById('linkedinLink');
+    const instagramLink = document.getElementById('instagramLink');
+    const linkedinError = document.getElementById('linkedinError');
+    const instagramError = document.getElementById('instagramError');
+
+    function validateUrl(url, type) {
+        if (!url) return true;
+        try {
+            new URL(url);
+            if (type === 'linkedin') {
+                return url.includes('linkedin.com');
+            } else if (type === 'instagram') {
+                return url.includes('instagram.com');
+            }
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    function updateIconVisibility(input, icon, link, error, type) {
+        const url = input.value.trim();
+        const isValid = validateUrl(url, type);
+        
+        if (url && isValid) {
+            icon.style.display = 'block';
+            link.href = url;
+            error.style.display = 'none';
+            input.classList.remove('invalid');
+        } else {
+            icon.style.display = 'none';
+            link.href = '#';
+            error.style.display = url ? 'block' : 'none';
+            input.classList.toggle('invalid', url && !isValid);
+        }
+    }
+
+    linkedinInput.addEventListener('input', () => {
+        updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+    });
+
+    instagramInput.addEventListener('input', () => {
+        updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const linkedinValid = validateUrl(linkedinInput.value, 'linkedin');
+        const instagramValid = validateUrl(instagramInput.value, 'instagram');
+
+        if (!linkedinValid || !instagramValid) {
+            alert('Please correct the invalid URLs before submitting.');
+            return;
+        }
+
+        const formData = new FormData(form);
+        formData.append('action', 'save_social_links');
+
+        fetch('/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+                updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+                alert('Social links saved successfully.');
+            } else {
+                alert('Error saving social links: ' + (data.data || 'Unknown error.'));
+            }
+        })
+        .catch(error => {
+            console.error('Request error:', error);
+            alert('There was an error saving the social links.');
+        });
+    });
+
+    // Inicializar la visibilidad de los iconos al cargar la página
+    updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+    updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+
+    // Cargar los enlaces guardados
+    function loadSavedLinks() {
+        fetch('/wp-admin/admin-ajax.php?action=get_user_social_links')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    linkedinInput.value = data.data.linkedin || '';
+                    instagramInput.value = data.data.instagram || '';
+                    updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+                    updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+                }
+            })
+            .catch(error => {
+                console.error('Error loading saved links:', error);
+            });
+    }
+
+    // Cargar los enlaces guardados al iniciar
+    loadSavedLinks();
+});
+</script>
