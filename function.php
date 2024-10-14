@@ -290,3 +290,45 @@ function custom_user_data($atts, $content = null) {
     return esc_html($a['default']);
 }
 add_shortcode('user_data', 'custom_user_data');
+
+
+// Formulario social media
+// Manejar la solicitud para guardar enlaces sociales
+function handle_save_social_links() {
+    if (!is_user_logged_in()) {
+        wp_send_json_error('User not logged in');
+        return;
+    }
+    $user_id = get_current_user_id();
+    
+    if (isset($_POST['card_link'])) {
+        $linkedin_url = sanitize_text_field($_POST['card_link']);
+        update_user_meta($user_id, 'card_link', $linkedin_url);
+    }
+    
+    if (isset($_POST['card_inst'])) {
+        $instagram_url = sanitize_text_field($_POST['card_inst']);
+        update_user_meta($user_id, 'card_inst', $instagram_url);
+    }
+    
+    wp_send_json_success('Social links saved successfully');
+}
+add_action('wp_ajax_save_social_links', 'handle_save_social_links');
+add_action('wp_ajax_nopriv_save_social_links', 'handle_save_social_links');
+
+// Obtener los enlaces sociales del usuario
+function handle_get_user_social_links() {
+    if (!is_user_logged_in()) {
+        wp_send_json_error('User not logged in');
+        return;
+    }
+    $user_id = get_current_user_id();
+    $links = array(
+        'linkedin' => get_user_meta($user_id, 'card_link', true),
+        'instagram' => get_user_meta($user_id, 'card_inst', true)
+    );
+    
+    wp_send_json_success($links);
+}
+add_action('wp_ajax_get_user_social_links', 'handle_get_user_social_links');
+add_action('wp_ajax_nopriv_get_user_social_links', 'handle_get_user_social_links');
