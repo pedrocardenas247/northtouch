@@ -1,0 +1,146 @@
+<form id="update-form" method="post" name="New Form">
+    <input type="hidden" name="post_id" value="22930">
+    <input type="hidden" name="form_id" value="25db161">
+    <input type="hidden" name="referer_title" value="My account">
+    <input type="hidden" name="queried_id" value="22761">
+    
+    <div class="elementor-form-fields-wrapper elementor-labels-above">
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
+            <label for="form-field-name" class="elementor-field-label">Name</label>
+            <input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-job elementor-col-100">
+            <label for="form-field-job" class="elementor-field-label">Job Position</label>
+            <input size="1" type="text" name="form_fields[job]" id="form-field-job" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-tel elementor-field-group elementor-column elementor-field-group-phone elementor-col-100">
+            <label for="form-field-phone" class="elementor-field-label">Phone Number</label>
+            <input size="1" type="tel" name="form_fields[phone]" id="form-field-phone" class="elementor-field elementor-size-sm elementor-field-textual" pattern="[0-9()#*+=\\.-]+" title="Only numbers and phone characters (#, -, *, etc) are accepted.">
+        </div>
+        <div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100">
+            <label for="form-field-email" class="elementor-field-label">E-mail</label>
+            <input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-address elementor-col-100">
+            <label for="form-field-address" class="elementor-field-label">Address</label>
+            <input size="1" type="text" name="form_fields[address]" id="form-field-address" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-website elementor-col-100">
+            <label for="form-field-website" class="elementor-field-label">Website</label>
+            <input size="1" type="text" name="form_fields[website]" id="form-field-website" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+            <button class="elementor-button elementor-size-sm w-100" type="submit">
+                <span class="elementor-button-content-wrapper">
+                    <span class="elementor-button-text">Send</span>
+                </span>
+            </button>
+        </div>
+    </div>
+</form>
+<script>
+    // Actualiza formulario de datos personales
+    document.addEventListener('DOMContentLoaded', function() {
+        // Referencias a los campos del formulario y la tarjeta de presentación
+        var nameField = document.getElementById('form-field-name');
+        var cardName = document.getElementById('cardname');
+        var jobField = document.getElementById('form-field-job');
+        var cardJob = document.getElementById('cardjob');
+        var phoneField = document.getElementById('form-field-phone');
+        var cardPhone = document.getElementById('cardphone');
+
+        // Nuevos campos
+        var emailField = document.getElementById('form-field-email');
+        var cardEmail = document.getElementById('cardemail');
+        var addressField = document.getElementById('form-field-address');
+        var cardAddress = document.getElementById('cardaddress');
+        var websiteField = document.getElementById('form-field-website');
+        var cardWebsite = document.getElementById('cardweb');
+
+        // Si hay datos guardados previamente, los mostramos en la tarjeta
+        if (userData.custom_name) {
+            cardName.textContent = userData.custom_name;
+            nameField.value = userData.custom_name;
+        }
+        if (userData.custom_job) {
+            cardJob.textContent = userData.custom_job;
+            jobField.value = userData.custom_job;
+        }
+        if (userData.custom_phone) {
+            cardPhone.textContent = userData.custom_phone;
+            phoneField.value = userData.custom_phone;
+        }
+        if (userData.custom_email) {
+            cardEmail.textContent = userData.custom_email;
+            emailField.value = userData.custom_email;
+        }
+        if (userData.custom_address) {
+            cardAddress.textContent = userData.custom_address;
+            addressField.value = userData.custom_address;
+        }
+        if (userData.custom_website) {
+            cardWebsite.textContent = userData.custom_website;
+            websiteField.value = userData.custom_website;
+        }
+
+        // Actualiza el contenido de la tarjeta de presentación en tiempo real
+        nameField.addEventListener('input', function() {
+            cardName.textContent = nameField.value;
+        });
+
+        jobField.addEventListener('input', function() {
+            cardJob.textContent = jobField.value;
+        });
+
+        phoneField.addEventListener('input', function() {
+            cardPhone.textContent = phoneField.value;
+        });
+
+        emailField.addEventListener('input', function() {
+            cardEmail.textContent = emailField.value;
+        });
+
+        addressField.addEventListener('input', function() {
+            cardAddress.textContent = addressField.value;
+        });
+
+        websiteField.addEventListener('input', function() {
+            cardWebsite.textContent = websiteField.value;
+        });
+
+        // Envía el formulario para guardar los datos en WooCommerce usando ACF
+        document.getElementById('update-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var nameValue = nameField.value;
+            var jobValue = jobField.value;
+            var phoneValue = phoneField.value;
+            var emailValue = emailField.value;
+            var addressValue = addressField.value;
+            var websiteValue = websiteField.value;
+
+            fetch('/wp-admin/admin-ajax.php?action=save_acf_custom_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'custom_name': nameValue,
+                    'custom_job': jobValue,
+                    'custom_phone': phoneValue,
+                    'custom_email': emailValue,
+                    'custom_address': addressValue,
+                    'custom_website': websiteValue
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Datos guardados correctamente');
+                } else {
+                    alert('Error al guardar los datos');
+                }
+            });
+        });
+    });
+</script>
