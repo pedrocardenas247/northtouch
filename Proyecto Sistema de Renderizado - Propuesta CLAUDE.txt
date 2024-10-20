@@ -1,0 +1,67 @@
+// Hook para generar y almacenar el token al registrar un nuevo cliente
+add_action('user_register', 'generate_and_save_customer_token');
+
+function generate_and_save_customer_token($user_id) {
+    // Generar un token único
+    $token = wp_generate_password(20, false, false);
+    
+    // Guardar el token en el meta de usuario
+    update_user_meta($user_id, 'customer_token', $token);
+}
+
+// Mostrar el token en el perfil del usuario en el panel de administración
+add_action('show_user_profile', 'display_user_token');
+add_action('edit_user_profile', 'display_user_token');
+
+function display_user_token($user) {
+    $token = get_user_meta($user->ID, 'customer_token', true);
+    ?>
+    <h3>Customer Token</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="customer_token">Token</label></th>
+            <td>
+                <input type="text" name="customer_token" id="customer_token" value="<?php echo esc_attr($token); ?>" class="regular-text" readonly />
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+
+Y este es el codigo para el shortcode, pero no estoy seguro que sea la forma mas segura para crear la pagina donde se rendericee solo la tarjeta exaxtamente igual como se ve en la cuenta del cliente:
+
+// SHORTCODE
+function page_shortcode($atts) {
+    // Extraer el atributo 'id' del shortcode y asignar un valor predeterminado si no se proporciona
+    $atts = shortcode_atts(
+        array(
+            'id' => 0, // Valor predeterminado: 0 si no se pasa un ID
+        ),
+        $atts
+    );
+
+    // Verifica si se ha proporcionado un ID válido
+    $page_id = intval($atts['id']);
+    if ($page_id === 0) {
+        return 'No se ha proporcionado un ID de página válido.';
+    }
+
+    // Obtén la página por su ID
+    $page = get_post($page_id);
+
+    // Verifica si la página existe
+    if (!$page || $page->post_status !== 'publish') {
+        return 'La página no existe o no está publicada.';
+    }
+
+    // Si la página fue construida con Elementor, usa la función de Elementor para procesar su contenido
+    if ( did_action( 'elementor/loaded' ) ) {
+        return \Elementor\Plugin::$instance->frontend->get_builder_content( $page_id );
+    }
+
+    // Si no fue hecha con Elementor, muestra el contenido normal
+    return apply_filters('the_content', $page->post_content);
+}
+
+// Registrar el shortcode
+add_shortcode('page', 'page_shortcode');

@@ -1,0 +1,94 @@
+Proyecto: Sistema de Renderizado de Tarjetas Virtuales Compartibles en WooCommerce
+Objetivo:
+Desarrollar una página de renderizado para tarjetas virtuales personalizadas, accesible mediante un enlace único que incluye un token asignado a cada tarjeta de usuario. Este sistema permitirá a los usuarios compartir sus tarjetas de forma segura y dinámica.
+Se requiere que el codigo sea moderno, escalable, seguro y soportado por todos los exploradores
+Componentes Existentes:
+
+Página de Creación/Edición de Tarjeta:
+
+Formularios funcionales para ingresar datos personales, logo, fotos y redes sociales.
+Códigos disponibles en:
+
+Logo y Fotos: https://github.com/pedrocardenas247/northtouch/blob/b95a68adb9f175185508af332671ae157d000ead/Formulario%20de%20Logo%20y%20Fotos
+Datos Personales: https://github.com/pedrocardenas247/northtouch/blob/b95a68adb9f175185508af332671ae157d000ead/Formulario%20de%20datos%20Personales
+Redes Sociales: https://github.com/pedrocardenas247/northtouch/blob/b95a68adb9f175185508af332671ae157d000ead/Formulario%20de%20redes%20Socciales
+
+Los campos en la base de datos de woocommerce se han creado con SFC Secure Custom Fields
+
+
+Displays de Tarjeta:
+
+Secciones de visualización que muestran la tarjeta actual.
+Códigos disponibles en:
+
+Logo y Foto: https://github.com/pedrocardenas247/northtouch/blob/b95a68adb9f175185508af332671ae157d000ead/Display%20Logo%20y%20Foto
+Datos Personales: https://github.com/pedrocardenas247/northtouch/blob/b95a68adb9f175185508af332671ae157d000ead/Display%20Datos%20personales
+Redes Sociales: https://github.com/pedrocardenas247/northtouch/blob/b95a68adb9f175185508af332671ae157d000ead/Display%20Redes%20Sociales
+
+
+
+
+CSS Personalizado:
+
+Estilos existentes en el Custom CSS del theme: https://github.com/pedrocardenas247/northtouch/blob/b95a68adb9f175185508af332671ae157d000ead/Custom%20CSS
+
+
+
+Componentes a Implementar:
+
+Sistema de Tokens:
+
+Generación automática de dos tokens únicos por usuario al registrarse:
+
+Token de cuenta del usuario
+Token que identifica la tarjeta de cada usuario, este token debe estar en el link por el cual se compartira la tarjeta 
+
+Almacenamiento de tokens en la base de datos SQL de WordPress/WooCommerce.
+Almacenamiento en la base de datos del enlace completo donde se vera la tarjeta renderizada (incluyendo el token de la tarjeta)
+Tambien deben de verse los tokens y el enlace para compartir la tarjeta en cada user account de woocommerce en el administrador
+
+Página de Renderizado:
+
+Creación de una página PHP separada que:
+
+Verifique el token de la tarjeta.
+Consulte la base de datos para obtener los datos de la tarjeta correspondiente.
+Renderice únicamente la tarjeta del token proporcionado.
+
+
+Accesible mediante un enlace único que incluye el token de la tarjeta.
+Reflejo exacto y dinámico de la tarjeta creada en los formularios originales.
+Actualización automática ante cambios en la página de creación, sin necesidad de modificaciones adicionales.
+
+
+Shortcode Único:
+
+Creación de un shortcode que se insertará en la página de renderizado.
+Funcionalidad para todas las tarjetas de todos los usuarios.
+Renderización de la información específica basada en el token único de cada tarjeta.
+
+
+Seguridad y Autenticación:
+
+Utilización del certificado HTTPS existente.
+Implementación de medidas contra inyecciones SQL.
+
+
+Responsividad y Compatibilidad:
+
+Uso de HTML5 y CSS3 para una estructura moderna.
+Implementación de diseño responsivo con media queries.
+Utilización de Normalize.css para consistencia entre navegadores.
+
+
+
+Características Clave:
+
+Dinamismo: Actualización automática de la página de renderizado ante cambios en la creación de tarjetas.
+Flexibilidad: Capacidad de añadir nuevas funcionalidades sin modificar el código del shortcode o la página de renderizado.
+Seguridad: Uso de tokens únicos y permanentes para cada usuario.
+Compatibilidad: Integración seamless con el sistema existente de WordPress y WooCommerce.
+
+Este sistema permitirá a los usuarios compartir sus tarjetas virtuales de forma segura y dinámica, reflejando exactamente la misma información y diseño que se ve en la página de creación, con la flexibilidad necesaria para futuras expansiones y mejoras.
+
+Crear documentación detallada del sistema para futuros desarrolladores.
