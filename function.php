@@ -1,34 +1,69 @@
-<?php
-
 // Hook para generar y almacenar el token al registrar un nuevo cliente
-add_action('user_register', 'generate_and_save_customer_token');
+add_action('user_register', 'generate_user_tokens', 10, 1);
 
-function generate_and_save_customer_token($user_id) {
-    // Generar un token único
-    $token = wp_generate_password(20, false, false);
-    
-    // Guardar el token en el meta de usuario
-    update_user_meta($user_id, 'customer_token', $token);
+function generate_user_tokens($user_id) {
+    // Generar Token de Cuenta
+    $account_token = wp_generate_uuid4();
+    update_user_meta($user_id, 'account_token', $account_token);
+
+    // Generar Token de Tarjeta
+    $card_token = wp_generate_uuid4();
+    update_user_meta($user_id, 'card_token', $card_token);
+
+    // Generar el enlace de tarjeta con el token
+    $card_url = home_url('/card/') . $card_token;
+    update_user_meta($user_id, 'card_url', $card_url);
 }
 
-// Mostrar el token en el perfil del usuario en el panel de administración
-add_action('show_user_profile', 'display_user_token');
-add_action('edit_user_profile', 'display_user_token');
+// Mostrar los tokens y el enlace en la página de perfil de usuario en el administrador de WooCommerce
+add_action('show_user_profile', 'show_user_tokens_in_admin');
+add_action('edit_user_profile', 'show_user_tokens_in_admin');
 
-function display_user_token($user) {
-    $token = get_user_meta($user->ID, 'customer_token', true);
+function show_user_tokens_in_admin($user) {
+    // Obtener los valores de los tokens y del enlace desde la base de datos
+    $account_token = get_user_meta($user->ID, 'account_token', true);
+    $card_token = get_user_meta($user->ID, 'card_token', true);
+    $card_url = get_user_meta($user->ID, 'card_url', true);
+
     ?>
-    <h3>Customer Token</h3>
+    <h3>Tokens del Usuario y Enlace de Tarjeta</h3>
+    
     <table class="form-table">
         <tr>
-            <th><label for="customer_token">Token</label></th>
+            <th><label for="account_token">Token de Cuenta</label></th>
             <td>
-                <input type="text" name="customer_token" id="customer_token" value="<?php echo esc_attr($token); ?>" class="regular-text" readonly />
+                <input type="text" id="account_token" name="account_token" value="<?php echo esc_attr($account_token); ?>" class="regular-text" readonly />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="card_token">Token de Tarjeta</label></th>
+            <td>
+                <input type="text" id="card_token" name="card_token" value="<?php echo esc_attr($card_token); ?>" class="regular-text" readonly />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="card_url">Enlace para Compartir la Tarjeta</label></th>
+            <td>
+                <input type="text" id="card_url" name="card_url" value="<?php echo esc_url($card_url); ?>" class="regular-text" readonly />
             </td>
         </tr>
     </table>
     <?php
 }
+
+// Guardar tokens y enlace si se edita el perfil (en caso de que sea necesario)
+add_action('personal_options_update', 'save_user_tokens_in_admin');
+add_action('edit_user_profile_update', 'save_user_tokens_in_admin');
+
+function save_user_tokens_in_admin($user_id) {
+    if (!current_user_can('edit_user', $user_id)) {
+        return false;
+    }
+    update_user_meta($user_id, 'account_token', sanitize_text_field($_POST['account_token']));
+    update_user_meta($user_id, 'card_token', sanitize_text_field($_POST['card_token']));
+    update_user_meta($user_id, 'card_url', esc_url_raw($_POST['card_url']));
+}
+
 
 
 
@@ -111,11 +146,7 @@ function guardar_datos_acf() {
     wp_send_json_success();
 }
 
-
-
-
-
-// SHORTCODE
+// SHORTCODE de la pagina de creacion de la tarjeta
 function page_shortcode($atts) {
     // Extraer el atributo 'id' del shortcode y asignar un valor predeterminado si no se proporciona
     $atts = shortcode_atts(
@@ -150,6 +181,8 @@ function page_shortcode($atts) {
 
 // Registrar el shortcode
 add_shortcode('page', 'page_shortcode');
+
+
 
 
 /**
