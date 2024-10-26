@@ -42,6 +42,8 @@ A/B testing de diseños
 Notificaciones cuando alguien ve la tarjeta
 Integración con más redes sociales
 Gestión de contactos
+
+"You have reached your daily sharing limit. Your sharing capabilities will reset in [X] hours. Consider upgrading your account for increased sharing capacity."
 Landing pages personalizadas
 
 
