@@ -6,3 +6,40 @@ WhatsApp sharing button (especially useful on mobile)
 Share via SMS option for mobile users
  sharing functionality to track analytics (times shared, clicks)
 Usuario pueda agregar colores personalizados
+
+
+Basic (Free):
+
+QR code básico
+Compartir por email
+Copiar link
+Estadísticas básicas (veces compartido)
+
+Premium:
+
+Analytics avanzados:
+
+Heat maps de clicks
+Geografía de visitantes
+Tiempo de visita
+Conversiones
+
+
+Personalización:
+
+Personalización de colores del QR
+Múltiples diseños de QR
+Templates de email personalizados
+Múltiples tarjetas virtuales
+
+
+Características adicionales:
+
+Programación de envíos
+Integración con CRM
+Exportación de datos
+A/B testing de diseños
+Notificaciones cuando alguien ve la tarjeta
+Integración con más redes sociales
+Gestión de contactos
+Landing pages personalizadas
