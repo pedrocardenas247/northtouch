@@ -43,3 +43,7 @@ Notificaciones cuando alguien ve la tarjeta
 Integración con más redes sociales
 Gestión de contactos
 Landing pages personalizadas
+
+
+¿Te gustaría que empecemos con la implementación del tab en My Account? Podría mostrarte el código necesario para añadir el nuevo endpoint y crear la estructura básica.
+También, ¿tienes alguna preferencia específica para el diseño del QR code moderno? Podría mostrarte algunos ejemplos de estilos diferentes para que elijas.
