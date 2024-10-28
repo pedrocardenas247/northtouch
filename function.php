@@ -11,7 +11,7 @@ function generate_user_tokens($user_id) {
     update_user_meta($user_id, 'card_token', $card_token);
 
     // Generar el enlace de tarjeta con el token
-    $card_url = home_url('/card/') . $card_token;
+    $card_url = home_url('/digital-card/') . '?token=' . $card_token;
     update_user_meta($user_id, 'card_url', $card_url);
 }
 
@@ -365,3 +365,18 @@ function handle_get_user_social_links() {
 }
 add_action('wp_ajax_get_user_social_links', 'handle_get_user_social_links');
 add_action('wp_ajax_nopriv_get_user_social_links', 'handle_get_user_social_links');
+
+// Agrega share-tab al menu
+function load_my_account_tabs_styles() {
+    if (is_account_page()) {
+        wp_enqueue_style('plus-jakarta-sans', 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        
+        // Usar get_stylesheet_directory_uri() para apuntar al tema hijo
+        $css_path = get_stylesheet_directory_uri() . '/inc/my-account/css/my-account-tabs.css';
+        wp_enqueue_style('my-account-tabs', $css_path, array(), time()); // Usando time() para evitar caché durante desarrollo
+        
+        // Debug
+        error_log('CSS Path: ' . $css_path);
+    }
+}
+add_action('wp_enqueue_scripts', 'load_my_account_tabs_styles');
