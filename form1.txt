@@ -1,0 +1,747 @@
+<?php
+/*
+Template Name: Cards Layout
+*/
+
+get_header(); ?>
+
+<style>
+    .cards-layout-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+    }
+
+    .sidebar-menu {
+        width: 250px;
+        flex-shrink: 0;
+    }
+
+    .menu-item {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        color: #333;
+        text-decoration: none;
+        display: block;
+    }
+
+    .menu-item.active {
+        background-color: #ff4e8c;
+        color: white;
+    }
+
+    .main-content {
+        flex: 1;
+    }
+
+    .cards-layout-header {
+        width: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .cards-layout-wrapper {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .cards-layout-card {
+        flex: 1;
+        padding: 20px;
+        min-height: 400px;
+    }
+
+    .cards-layout-form {
+        flex: 1;
+        padding: 20px;
+        min-height: 400px;
+    }
+
+    @media (max-width: 992px) {
+        .cards-layout-container {
+            flex-direction: column;
+        }
+
+        .sidebar-menu {
+            width: 100%;
+        }
+
+        .cards-layout-wrapper {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="cards-layout-container">
+    <!-- Sidebar Menu -->
+    <nav class="sidebar-menu">
+        <a href="#" class="menu-item active">Cards</a>
+        <a href="#" class="menu-item">Share</a>
+        <a href="#" class="menu-item">Contacts</a>
+        <a href="#" class="menu-item">Analytics</a>
+        <a href="#" class="menu-item">Upgrade Account</a>
+        <a href="#" class="menu-item">Logout</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="cards-layout-header">
+            <h1><?php the_title(); ?></h1>
+        </header>
+        
+        <div class="cards-layout-wrapper">
+            <div class="cards-layout-card">
+               <div class="card_display1"><div class="container_imagenes">
+    <div class="logo_imagenes">
+        [mostrar_logo_empresa]
+    </div>
+    <div class="profile_imagenes">
+        [mostrar_foto_perfil]
+    </div>
+</div>
+</div>
+               <div class="card_display2"><!DOCTYPE html>
+<body>
+    <div class="info-container">
+        <div class="info-row-name">
+            <div class="info-value" id="cardname">[user_data field="custom_name" default="Nombre no disponible"]</div>
+        </div>
+        <div class="info-row-job">
+            <div class="info-value" id="cardjob">[user_data field="custom_job" default="Trabajo no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="5">
+  <!-- Bigger white square with rounded corners -->
+  <rect x="4" y="4" width="72" height="72" rx="5" ry="5" fill="transparent" stroke="white"/>
+
+  <!-- iPhone body, centered with less rounded corners and scaled down -->
+  <rect x="27" y="15" width="26" height="50" rx="4" ry="4" fill="white" stroke="white"/>
+  
+  <!-- iPhone screen (transparent) -->
+  <rect x="29" y="18" width="22" height="34" rx="2" ry="2" fill="black" stroke="white"/>
+
+  <!-- Home button, moved up slightly to fit the new space -->
+  <circle cx="40" cy="58" r="1.5" fill="black" stroke="black" stroke-width="2.5"/>
+</svg>
+
+
+
+
+
+
+
+</div>
+            <div class="info-value" id="cardphone">[user_data field="custom_phone" default="Teléfono no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" fill="none" stroke="white" stroke-width="5">
+  <!-- Bigger white square with rounded corners -->
+  <rect x="6" y="6" width="78" height="78" rx="5" ry="5" fill="transparent" stroke="white"/>
+
+  <!-- Envelope body, smaller size -->
+  <path d="M25 32 h40 a2 2 0 0 1 2 2 v24 a2 2 0 0 1 -2 2 h-40 a2 2 0 0 1 -2 -2 v-24 a2 2 0 0 1 2 -2 z" fill="white" stroke="white"/>
+  
+  <!-- Envelope flap, smaller size -->
+  <path d="M25 32 l20 16 l20 -16" fill="none" stroke="white" stroke-width="6"/>
+
+  <!-- Inner lines for details -->
+  <path d="M25 32 l20 16 l20 -16" fill="none" stroke="black" stroke-width="2"/>
+</svg>
+</div>
+            <div class="info-value" id="cardemail">[user_data field="custom_email" default="Email no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" fill="none" stroke="white" stroke-width="6">
+  <!-- Bigger white square with rounded corners -->
+  <rect x="6" y="6" width="78" height="78" rx="5" ry="5" fill="transparent" stroke="white"/>
+
+  <!-- Solid map marker shape, scaled down -->
+  <path d="M45 20 C52 20, 58 26, 58 32 C58 45, 45 70, 45 70 C45 70, 32 45, 32 32 C32 26, 38 20, 45 20 Z" fill="white" stroke="white"/>
+  
+  <!-- Inner black circle (the hole), scaled down -->
+  <circle cx="45" cy="36" r="10" fill="black"/>
+</svg>
+
+
+
+
+
+                
+            </div>
+            <div class="info-value" id="cardaddress">[user_data field="custom_address" default="Dirección no disponible"]</div>
+        </div>
+        <div class="info-row">
+            <div class="info-icono">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" fill="none" stroke="white" stroke-width="2">
+      <!-- Bigger white square with rounded corners and stroke size of 5 -->
+      <rect x="6" y="6" width="58" height="58" rx="10" ry="10" fill="transparent" stroke="white" stroke-width="5"/>
+      <g transform="translate(17, 17) scale(1.5)">
+        <!-- Globe outline -->
+        <circle cx="12" cy="12" r="10" stroke="white" fill="none"></circle>
+        <!-- Horizontal line -->
+        <path d="M2 12h20" stroke="white" fill="none"></path>
+        <!-- First curved line -->
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" fill="none"></path>
+        <!-- Second curved line -->
+        <path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10 15.3 15.3 0 0 0 4-10 15.3 15.3 0 0 0-4-10z" stroke="white" fill="none"></path>
+      </g>
+    </svg>
+
+
+
+            </div>
+            <div class="info-value" id="cardweb">[user_data field="custom_website" default="Website no disponible"]</div>
+        </div>
+    </div>
+</body>
+</html>
+</div>
+               <div class="card_display3"><div id="socialIconsDisplay">
+    <!-- LinkedIn Icon -->
+    <div class="card_social_icons" id="linkedinIcon" style="display: none;">
+        <a id="linkedinLink" href="#" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+                <rect x="5" y="5" width="100" height="100" rx="15" ry="15" fill="none" stroke="white" stroke-width="4"/>
+                <rect x="15" y="15" width="80" height="80" rx="18" ry="18" fill="black"/>
+                <g transform="translate(25, 25) scale(2.5)">
+                    <rect x="4" y="8" width="5" height="16" fill="white"/>
+                    <circle cx="6.5" cy="5" r="2.5" fill="white"/>
+                    <path d="M28 24h-5v-8.5c0-2.5-1-4.5-3.5-4.5-2 0-3.5 1.5-3.5 4.5V24h-5V8h5v2.5c1-1.5 2.5-2.5 5-2.5 4 0 7 2.5 7 7.5V24z" fill="white"/>
+                </g>
+            </svg>
+        </a>
+    </div>
+    <!-- Instagram Icon -->
+    <div class="card_social_icons" id="instagramIcon" style="display: none;">
+        <a id="instagramLink" href="#" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+                <rect x="5" y="5" width="100" height="100" rx="15" ry="15" fill="none" stroke="white" stroke-width="4"/>
+                <rect x="15" y="15" width="80" height="80" rx="18" ry="18" fill="black"/>
+                <rect x="25" y="25" width="60" height="60" rx="15" ry="15" fill="none" stroke="white" stroke-width="6"/>
+                <circle cx="55" cy="55" r="15" fill="none" stroke="white" stroke-width="6"/>
+                <circle cx="55" cy="55" r="1" fill="white"/>
+                <circle cx="75" cy="35" r="4" fill="white"/>
+            </svg>
+        </a>
+    </div>
+</div>
+</div>
+            </div>
+            
+            <div class="cards-layout-form">
+                <div class="card_form1"><form id="update-form" method="post" name="New Form">
+    <input type="hidden" name="post_id" value="22930">
+    <input type="hidden" name="form_id" value="25db161">
+    <input type="hidden" name="referer_title" value="My account">
+    <input type="hidden" name="queried_id" value="22761">
+    
+    <div class="elementor-form-fields-wrapper elementor-labels-above">
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
+            <label for="form-field-name" class="elementor-field-label">Name</label>
+            <input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-job elementor-col-100">
+            <label for="form-field-job" class="elementor-field-label">Job Position</label>
+            <input size="1" type="text" name="form_fields[job]" id="form-field-job" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-tel elementor-field-group elementor-column elementor-field-group-phone elementor-col-100">
+            <label for="form-field-phone" class="elementor-field-label">Phone Number</label>
+            <input size="1" type="tel" name="form_fields[phone]" id="form-field-phone" class="elementor-field elementor-size-sm elementor-field-textual" pattern="[0-9()#*+=\\.-]+" title="Only numbers and phone characters (#, -, *, etc) are accepted.">
+        </div>
+        <div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100">
+            <label for="form-field-email" class="elementor-field-label">E-mail</label>
+            <input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-address elementor-col-100">
+            <label for="form-field-address" class="elementor-field-label">Address</label>
+            <input size="1" type="text" name="form_fields[address]" id="form-field-address" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-website elementor-col-100">
+            <label for="form-field-website" class="elementor-field-label">Website</label>
+            <input size="1" type="text" name="form_fields[website]" id="form-field-website" class="elementor-field elementor-size-sm elementor-field-textual">
+        </div>
+        <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+            <button class="elementor-button elementor-size-sm w-100" type="submit">
+                <span class="elementor-button-content-wrapper">
+                    <span class="elementor-button-text">Send</span>
+                </span>
+            </button>
+        </div>
+    </div>
+</form>
+<script>
+    // Actualiza formulario de datos personales
+    document.addEventListener('DOMContentLoaded', function() {
+        // Referencias a los campos del formulario y la tarjeta de presentación
+        var nameField = document.getElementById('form-field-name');
+        var cardName = document.getElementById('cardname');
+        var jobField = document.getElementById('form-field-job');
+        var cardJob = document.getElementById('cardjob');
+        var phoneField = document.getElementById('form-field-phone');
+        var cardPhone = document.getElementById('cardphone');
+
+        // Nuevos campos
+        var emailField = document.getElementById('form-field-email');
+        var cardEmail = document.getElementById('cardemail');
+        var addressField = document.getElementById('form-field-address');
+        var cardAddress = document.getElementById('cardaddress');
+        var websiteField = document.getElementById('form-field-website');
+        var cardWebsite = document.getElementById('cardweb');
+
+        // Si hay datos guardados previamente, los mostramos en la tarjeta
+        if (userData.custom_name) {
+            cardName.textContent = userData.custom_name;
+            nameField.value = userData.custom_name;
+        }
+        if (userData.custom_job) {
+            cardJob.textContent = userData.custom_job;
+            jobField.value = userData.custom_job;
+        }
+        if (userData.custom_phone) {
+            cardPhone.textContent = userData.custom_phone;
+            phoneField.value = userData.custom_phone;
+        }
+        if (userData.custom_email) {
+            cardEmail.textContent = userData.custom_email;
+            emailField.value = userData.custom_email;
+        }
+        if (userData.custom_address) {
+            cardAddress.textContent = userData.custom_address;
+            addressField.value = userData.custom_address;
+        }
+        if (userData.custom_website) {
+            cardWebsite.textContent = userData.custom_website;
+            websiteField.value = userData.custom_website;
+        }
+
+        // Actualiza el contenido de la tarjeta de presentación en tiempo real
+        nameField.addEventListener('input', function() {
+            cardName.textContent = nameField.value;
+        });
+
+        jobField.addEventListener('input', function() {
+            cardJob.textContent = jobField.value;
+        });
+
+        phoneField.addEventListener('input', function() {
+            cardPhone.textContent = phoneField.value;
+        });
+
+        emailField.addEventListener('input', function() {
+            cardEmail.textContent = emailField.value;
+        });
+
+        addressField.addEventListener('input', function() {
+            cardAddress.textContent = addressField.value;
+        });
+
+        websiteField.addEventListener('input', function() {
+            cardWebsite.textContent = websiteField.value;
+        });
+
+        // Envía el formulario para guardar los datos en WooCommerce usando ACF
+        document.getElementById('update-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var nameValue = nameField.value;
+            var jobValue = jobField.value;
+            var phoneValue = phoneField.value;
+            var emailValue = emailField.value;
+            var addressValue = addressField.value;
+            var websiteValue = websiteField.value;
+
+            fetch('/wp-admin/admin-ajax.php?action=save_acf_custom_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'custom_name': nameValue,
+                    'custom_job': jobValue,
+                    'custom_phone': phoneValue,
+                    'custom_email': emailValue,
+                    'custom_address': addressValue,
+                    'custom_website': websiteValue
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Datos guardados correctamente');
+                } else {
+                    alert('Error al guardar los datos');
+                }
+            });
+        });
+    });
+</script>
+</div>
+                <div class="card_form2"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Validation</title>
+    <style>
+        .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .button-disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .allowed-files {
+            font-size: 0.8em;
+            color: #ff497c;
+        }
+    </style>
+</head>
+<body>
+    <form id="formphotos" method="post" enctype="multipart/form-data" class="elementor-form">
+        <div class="elementor-form-fields-wrapper elementor-labels-above">
+            <div class="elementor-field-type-file elementor-field-group elementor-column elementor-field-group-companylogo elementor-col-100">
+                <label for="companylogo" class="elementor-field-label">Company Logo <span class="allowed-files">(allowed files: jpg, png, jpeg)</span></label>
+                <input type="file" id="companylogo" name="companylogo" class="elementor-field elementor-size-sm elementor-field-textual">
+                <img id="preview-companylogo" class="img-thumbnail" style="max-width: 100px; display: none;">
+            </div>
+            <div class="elementor-field-type-file elementor-field-group elementor-column elementor-field-group-profilephoto elementor-col-100">
+                <label for="profilephoto" class="elementor-field-label">Profile Photo</label>
+                <input type="file" id="profilephoto" name="profilephoto" class="elementor-field elementor-size-sm elementor-field-textual">
+                <img id="preview-profilephoto" class="img-thumbnail" style="max-width: 100px; display: none;">
+            </div>
+            <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+                <button class="elementor-button elementor-size-sm w-100 button-disabled" type="submit" id="submit-button">
+                    <span class="elementor-button-content-wrapper">
+                        <span class="elementor-button-text">Send</span>
+                        <div class="spinner" id="spinner"></div>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('#formphotos');
+            const submitButton = document.getElementById('submit-button');
+            const spinner = document.getElementById('spinner');
+            const companyLogoInput = document.getElementById('companylogo');
+            const profilePhotoInput = document.getElementById('profilephoto');
+
+            if (!form) {
+                console.error('Form not found.');
+                return;
+            }
+
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const maxSize = 1048576; // 1 MB en bytes
+
+            // Deshabilitar el botón de envío inicialmente
+            submitButton.disabled = true;
+
+            function validateFile(file) {
+                if (!file) return false;
+                return allowedTypes.includes(file.type) && file.size <= maxSize;
+            }
+
+            function checkValidation() {
+                const companyLogo = companyLogoInput.files[0];
+                const profilePhoto = profilePhotoInput.files[0];
+
+                const isCompanyLogoValid = validateFile(companyLogo);
+                const isProfilePhotoValid = validateFile(profilePhoto);
+
+                const isValid = (isCompanyLogoValid && !profilePhoto) || 
+                                (isProfilePhotoValid && !companyLogo) || 
+                                (isCompanyLogoValid && isProfilePhotoValid);
+
+                submitButton.disabled = !isValid;
+                submitButton.classList.toggle('button-disabled', !isValid);
+            }
+
+            function handleImagePreview(input, preview) {
+                const file = input.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            // Event listeners para previsualización y validación
+            companyLogoInput.addEventListener('change', function() {
+                handleImagePreview(this, document.querySelector('#preview-companylogo'));
+                checkValidation();
+            });
+
+            profilePhotoInput.addEventListener('change', function() {
+                handleImagePreview(this, document.querySelector('#preview-profilephoto'));
+                checkValidation();
+            });
+
+            // Manejo del envío del formulario
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                formData.append('action', 'save_acf_images_update_photos');
+
+                // Mostrar spinner y deshabilitar formulario
+                spinner.style.display = 'inline-block';
+                submitButton.classList.add('button-disabled');
+                Array.from(form.elements).forEach(element => element.disabled = true);
+
+                fetch('/wp-admin/admin-ajax.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        throw new Error(data.data || 'Unknown error.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Request error:', error);
+                    alert('There was an error processing the form.');
+                })
+                .finally(() => {
+                    // Restaurar el formulario
+                    spinner.style.display = 'none';
+                    submitButton.classList.remove('button-disabled');
+                    Array.from(form.elements).forEach(element => element.disabled = false);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+</div>
+                <div class="card_form3"><!-- Formulario de Redes Sociales -->
+<form id="socialLinksForm" class="elementor-form">
+    <div class="elementor-form-fields-wrapper elementor-labels-above">
+        <div class="elementor-field-group">
+            <label for="card_link" class="elementor-field-label">LinkedIn URL</label>
+            <input type="url" id="card_link" name="card_link" class="elementor-field elementor-size-sm url-input">
+            <div class="error-message" id="linkedinError">Please enter a valid LinkedIn URL</div>
+        </div>
+        
+        <div class="elementor-field-group">
+            <label for="card_inst" class="elementor-field-label">Instagram URL</label>
+            <input type="url" id="card_inst" name="card_inst" class="elementor-field elementor-size-sm url-input">
+            <div class="error-message" id="instagramError">Please enter a valid Instagram URL</div>
+        </div>
+        
+        <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+            <button class="elementor-button elementor-size-sm w-100" type="submit">
+                <span class="elementor-button-text">Save Social Links</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- Visualización de iconos -->
+<div id="socialIconsDisplay">
+    <!-- LinkedIn Icon -->
+    <div class="card_social_icons" id="linkedinIcon" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+            <rect x="5" y="5" width="100" height="100" rx="15" ry="15" fill="none" stroke="white" stroke-width="4"/>
+            <rect x="15" y="15" width="80" height="80" rx="18" ry="18" fill="black"/>
+            <g transform="translate(25, 25) scale(2.5)">
+                <rect x="4" y="8" width="5" height="16" fill="white"/>
+                <circle cx="6.5" cy="5" r="2.5" fill="white"/>
+                <path d="M28 24h-5v-8.5c0-2.5-1-4.5-3.5-4.5-2 0-3.5 1.5-3.5 4.5V24h-5V8h5v2.5c1-1.5 2.5-2.5 5-2.5 4 0 7 2.5 7 7.5V24z" fill="white"/>
+            </g>
+        </svg>
+    </div>
+    <!-- Instagram Icon -->
+    <div class="card_social_icons" id="instagramIcon" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+            <rect x="5" y="5" width="100" height="100" rx="15" ry="15" fill="none" stroke="white" stroke-width="4"/>
+            <rect x="15" y="15" width="80" height="80" rx="18" ry="18" fill="black"/>
+            <rect x="25" y="25" width="60" height="60" rx="15" ry="15" fill="none" stroke="white" stroke-width="6"/>
+            <circle cx="55" cy="55" r="15" fill="none" stroke="white" stroke-width="6"/>
+            <circle cx="55" cy="55" r="1" fill="white"/>
+            <circle cx="75" cy="35" r="4" fill="white"/>
+        </svg>
+    </div>
+</div>
+
+<style>
+    .url-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .url-input.invalid {
+        border-color: #ff497c;
+    }
+    .error-message {
+        color: #ff497c;
+        font-size: 0.8em;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        display: none;
+    }
+    .card_social_icons {
+    display: none;
+    width: 38px;
+    height: 38px;
+    margin: 10px;
+}
+
+#socialIconsDisplay {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('socialLinksForm');
+    const linkedinInput = document.getElementById('card_link');
+    const instagramInput = document.getElementById('card_inst');
+    const linkedinIcon = document.getElementById('linkedinIcon');
+    const instagramIcon = document.getElementById('instagramIcon');
+    const linkedinLink = document.getElementById('linkedinLink');
+    const instagramLink = document.getElementById('instagramLink');
+    const linkedinError = document.getElementById('linkedinError');
+    const instagramError = document.getElementById('instagramError');
+
+    function validateUrl(url, type) {
+        if (!url) return true;
+        try {
+            new URL(url);
+            if (type === 'linkedin') {
+                return url.includes('linkedin.com');
+            } else if (type === 'instagram') {
+                return url.includes('instagram.com');
+            }
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    function updateIconVisibility(input, icon, link, error, type) {
+        const url = input.value.trim();
+        const isValid = validateUrl(url, type);
+        
+        if (url && isValid) {
+            icon.style.display = 'block';
+            link.href = url;
+            error.style.display = 'none';
+            input.classList.remove('invalid');
+        } else {
+            icon.style.display = 'none';
+            link.href = '#';
+            error.style.display = url ? 'block' : 'none';
+            input.classList.toggle('invalid', url && !isValid);
+        }
+    }
+
+    linkedinInput.addEventListener('input', () => {
+        updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+    });
+
+    instagramInput.addEventListener('input', () => {
+        updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const linkedinValid = validateUrl(linkedinInput.value, 'linkedin');
+        const instagramValid = validateUrl(instagramInput.value, 'instagram');
+
+        if (!linkedinValid || !instagramValid) {
+            alert('Please correct the invalid URLs before submitting.');
+            return;
+        }
+
+        const formData = new FormData(form);
+        formData.append('action', 'save_social_links');
+
+        fetch('/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+                updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+                alert('Social links saved successfully.');
+            } else {
+                alert('Error saving social links: ' + (data.data || 'Unknown error.'));
+            }
+        })
+        .catch(error => {
+            console.error('Request error:', error);
+            alert('There was an error saving the social links.');
+        });
+    });
+
+    // Inicializar la visibilidad de los iconos al cargar la página
+    updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+    updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+
+    // Cargar los enlaces guardados
+    function loadSavedLinks() {
+        fetch('/wp-admin/admin-ajax.php?action=get_user_social_links')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    linkedinInput.value = data.data.linkedin || '';
+                    instagramInput.value = data.data.instagram || '';
+                    updateIconVisibility(linkedinInput, linkedinIcon, linkedinLink, linkedinError, 'linkedin');
+                    updateIconVisibility(instagramInput, instagramIcon, instagramLink, instagramError, 'instagram');
+                }
+            })
+            .catch(error => {
+                console.error('Error loading saved links:', error);
+            });
+    }
+
+    // Cargar los enlaces guardados al iniciar
+    loadSavedLinks();
+});
+</script>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php get_footer(); ?>
